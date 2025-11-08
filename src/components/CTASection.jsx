@@ -10,37 +10,51 @@ export default function CTASection() {
   const audioRef = useRef(null);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
 
-    const formData = new FormData(e.target);
-    const name = formData.get("name");
-    const email = formData.get("email");
+  const formData = new FormData(e.target);
+  const name = formData.get("name");
+  const email = formData.get("email");
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/api/waitlist`, {
-        method: "POST",
-        body: JSON.stringify({ name, email }),
-        headers: { "Content-Type": "application/json" },
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitted(true);
-        e.target.reset();
-        setShowConfetti(true);
-        if (audioRef.current) audioRef.current.play();
-        setTimeout(() => setShowConfetti(false), 4000);
-      } else {
-        console.error("Submission failed:", data.error);
-      }
-    } catch (err) {
-      console.error("Network error:", err);
-    } finally {
-      setLoading(false);
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_BASE_API;
+    if (!apiUrl) {
+      throw new Error("API URL not defined. Check NEXT_PUBLIC_BASE_API in .env");
     }
-  };
+
+    const response = await fetch(`${apiUrl}/api/waitlist`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+
+    if (data.success) {
+      console.log("✅ Success:", data);
+      setSubmitted(true);
+      e.target.reset();
+      setShowConfetti(true);
+      if (audioRef.current) audioRef.current.play();
+      setTimeout(() => setShowConfetti(false), 4000);
+    } else {
+      console.error("❌ Backend error:", data.error || "Unknown error");
+      alert("Something went wrong. Please try again later.");
+    }
+  } catch (err) {
+    console.error("❌ Frontend fetch error:", err.message);
+    alert("Failed to connect to the server. Check console for details.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // ✨ Confetti animation (unchanged)
   useEffect(() => {
