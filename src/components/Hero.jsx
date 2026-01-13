@@ -2,11 +2,11 @@
 
 export default function Hero() {
   return (
-    <div className="bg-gray-900 relative isolate px-6 pt-28 lg:px-8">
+    <div className="bg-gray-900 relative isolate px-6 pt-1 lg:px-8 ">
       {/* ---- Gradient background blob (top) ---- */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+        className="absolute inset-x-0 -top-4 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
       >
         <div
           className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36rem] -translate-x-1/2 rotate-[30deg]
@@ -20,7 +20,8 @@ export default function Hero() {
       </div>
 
       {/* ---- Main hero content ---- */}
-      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+      <div className="mx-auto max-w-2xl py-8 sm:py-24 lg:py-50
+">
         {/* Badge */}
         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           <div className="relative rounded-full px-3 py-1 text-sm text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
@@ -34,14 +35,11 @@ export default function Hero() {
 
         {/* Headline + tagline */}
         <div className="text-center">
-          <h1 className="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl">
-            The AI That Attends, Understands, and Summarizes Your Meetings
+          <h1 className="text-6xl font-semibold tracking-tight text-balance text-white sm:text-7xl">
+           Never Take Meeting Notes Again
           </h1>
-          <p className="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl leading-relaxed">
-            <span className="text-indigo-400 font-semibold">MoM.AI</span> joins your Google Meet or Zoom calls,
-            listens in real time, and writes beautifully structured Minutes of Meetings —
-            with action items, decisions, and key takeaways. <br />
-            You talk. MoM.AI remembers.
+          <p className="mt-7 text-lg font-medium text-pretty text-gray-400 sm:text-xl leading-relaxed">
+            <span className="text-indigo-400 font-semibold">MoM.AI</span> joins every call, listens in real time, and writes clean summaries with actions and decisions.
           </p>
 
           {/* CTAs */}
